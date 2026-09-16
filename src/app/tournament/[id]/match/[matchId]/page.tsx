@@ -6,8 +6,6 @@ import { useState, useEffect, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   getTournament,
-  getMatch,
-  getMatchStats,
   submitMatchResult,
 } from "@/lib/store";
 import type { Tournament, Match, MatchPlayerStats } from "@/lib/engine/types";
@@ -94,8 +92,8 @@ export default function MatchScorerPage() {
     return (
       <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6">
         <div className="animate-pulse space-y-4">
-          <div className="h-8 w-48 rounded-lg bg-white/5" />
-          <div className="h-64 rounded-2xl bg-white/5" />
+          <div className="h-8 w-48 rounded-lg bg-slate-100" />
+          <div className="h-64 rounded-2xl bg-slate-100" />
         </div>
       </div>
     );
@@ -116,7 +114,7 @@ export default function MatchScorerPage() {
       {/* Back link */}
       <Link
         href={`/tournament/${params.id}`}
-        className="mb-6 inline-flex items-center gap-1.5 text-xs sm:text-sm text-slate-400 hover:text-white transition-colors"
+        className="mb-6 inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-slate-500 hover:text-slate-900 transition-colors"
       >
         <ArrowLeft className="h-4 w-4" />
         Back to {tournament.name} Hub
@@ -125,7 +123,7 @@ export default function MatchScorerPage() {
       {/* Match header */}
       <div className="mb-6 sm:mb-8">
         <div className="flex items-center gap-3 mb-1.5">
-          <h1 className="text-2xl sm:text-3xl font-black text-white">
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900">
             Round {match.roundNumber}
           </h1>
           {isCompleted && !isEditing ? (
@@ -140,7 +138,7 @@ export default function MatchScorerPage() {
             </Badge>
           )}
         </div>
-        <p className="text-xs sm:text-sm text-slate-400">
+        <p className="text-xs sm:text-sm text-slate-500 font-medium">
           {tournament.name} — Match {match.roundNumber} of {tournament.config.leagueMatches + 3}
         </p>
       </div>
@@ -153,26 +151,26 @@ export default function MatchScorerPage() {
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="glass-card glow-emerald p-5 text-center border border-emerald-500/40 bg-emerald-950/20"
+              className="p-5 text-center rounded-2xl border border-emerald-300 bg-emerald-50 shadow-md"
             >
-              <CheckCircle2 className="h-9 w-9 text-emerald-400 mx-auto mb-2 animate-bounce" />
-              <p className="text-lg font-black text-emerald-300">
+              <CheckCircle2 className="h-9 w-9 text-emerald-600 mx-auto mb-2 animate-bounce" />
+              <p className="text-lg font-black text-emerald-950">
                 Match Result Recorded!
               </p>
-              <p className="text-xs text-emerald-400/80 mt-0.5">
+              <p className="text-xs text-emerald-700 mt-0.5 font-semibold">
                 Player bucks and tournament standings updated.
               </p>
             </motion.div>
           )}
 
           {/* Result Card */}
-          <div className="glass-card p-5 sm:p-7 border border-white/15">
+          <div className="p-5 sm:p-7 border border-slate-200 bg-white rounded-2xl shadow-xs">
             <div className="flex items-center justify-between gap-3 mb-6">
               <div className="flex items-center gap-2.5">
-                <div className="h-8 w-8 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                <div className="h-8 w-8 rounded-xl bg-amber-100 border border-amber-300 flex items-center justify-center text-amber-700">
                   <Trophy className="h-4 w-4" />
                 </div>
-                <h2 className="text-lg font-black text-white">Match Scorecard</h2>
+                <h2 className="text-lg font-black text-slate-900">Match Scorecard</h2>
               </div>
 
               <Button
@@ -192,18 +190,18 @@ export default function MatchScorerPage() {
                 className={cn(
                   "rounded-2xl border p-4 transition-all",
                   match.winnerTeamId === match.team1.id
-                    ? "border-emerald-500/40 bg-emerald-950/25 shadow-lg shadow-emerald-950/30"
-                    : "border-white/10 bg-white/[0.02]"
+                    ? "border-emerald-300 bg-emerald-50/70 shadow-xs"
+                    : "border-slate-200 bg-slate-50"
                 )}
               >
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <div className="h-3 w-3 rounded-full bg-white border border-slate-300 shadow-sm" />
-                    <span className="text-xs font-bold uppercase text-slate-300">Team 1</span>
+                    <div className="h-3 w-3 rounded-full bg-white border border-slate-300 shadow-xs" />
+                    <span className="text-xs font-bold uppercase text-slate-700">Team 1</span>
                   </div>
                   {match.winnerTeamId === match.team1.id && (
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1">
-                      <Crown className="h-3 w-3 text-amber-400" />
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-1">
+                      <Crown className="h-3 w-3 text-amber-600" />
                       Won
                     </span>
                   )}
@@ -219,11 +217,11 @@ export default function MatchScorerPage() {
                         <PlayerBadge player={player} size="sm" />
                         <div className="flex items-center gap-2">
                           {playerStats?.isQueenWinner && (
-                            <span className="text-[10px] text-rose-400 font-bold flex items-center gap-0.5 bg-rose-500/10 px-1.5 py-0.5 rounded border border-rose-500/20">
-                              <Crown className="h-3 w-3" /> Queen
+                            <span className="text-[10px] text-rose-700 font-bold flex items-center gap-0.5 bg-rose-100 px-1.5 py-0.5 rounded border border-rose-200">
+                              <Crown className="h-3 w-3 text-rose-600" /> Queen
                             </span>
                           )}
-                          <span className="text-lg font-black tabular-nums text-amber-400">
+                          <span className="text-lg font-black tabular-nums text-amber-600">
                             +{playerStats?.bucks ?? 0}
                           </span>
                         </div>
@@ -238,18 +236,18 @@ export default function MatchScorerPage() {
                 className={cn(
                   "rounded-2xl border p-4 transition-all",
                   match.winnerTeamId === match.team2.id
-                    ? "border-emerald-500/40 bg-emerald-950/25 shadow-lg shadow-emerald-950/30"
-                    : "border-white/10 bg-white/[0.02]"
+                    ? "border-emerald-300 bg-emerald-50/70 shadow-xs"
+                    : "border-slate-200 bg-slate-50"
                 )}
               >
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <div className="h-3 w-3 rounded-full bg-slate-900 border border-slate-600 shadow-sm" />
-                    <span className="text-xs font-bold uppercase text-slate-300">Team 2</span>
+                    <div className="h-3 w-3 rounded-full bg-slate-900 border border-slate-700 shadow-xs" />
+                    <span className="text-xs font-bold uppercase text-slate-700">Team 2</span>
                   </div>
                   {match.winnerTeamId === match.team2.id && (
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1">
-                      <Crown className="h-3 w-3 text-amber-400" />
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-1">
+                      <Crown className="h-3 w-3 text-amber-600" />
                       Won
                     </span>
                   )}
@@ -265,11 +263,11 @@ export default function MatchScorerPage() {
                         <PlayerBadge player={player} size="sm" />
                         <div className="flex items-center gap-2">
                           {playerStats?.isQueenWinner && (
-                            <span className="text-[10px] text-rose-400 font-bold flex items-center gap-0.5 bg-rose-500/10 px-1.5 py-0.5 rounded border border-rose-500/20">
-                              <Crown className="h-3 w-3" /> Queen
+                            <span className="text-[10px] text-rose-700 font-bold flex items-center gap-0.5 bg-rose-100 px-1.5 py-0.5 rounded border border-rose-200">
+                              <Crown className="h-3 w-3 text-rose-600" /> Queen
                             </span>
                           )}
-                          <span className="text-lg font-black tabular-nums text-amber-400">
+                          <span className="text-lg font-black tabular-nums text-amber-600">
                             +{playerStats?.bucks ?? 0}
                           </span>
                         </div>

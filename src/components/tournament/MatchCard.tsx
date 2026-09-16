@@ -4,9 +4,8 @@ import { cn } from "@/lib/utils";
 import type { Match, Player } from "@/lib/engine/types";
 import { Badge } from "@/components/ui/Badge";
 import { PlayerBadge } from "./PlayerBadge";
-import { Swords, CheckCircle2, Clock, CircleDot, Crown, ArrowRight } from "lucide-react";
+import { Swords, CheckCircle2, Clock, CircleDot, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 
 interface MatchCardProps {
   match: Match;
@@ -52,8 +51,8 @@ export function MatchCard({
   const content = (
     <div
       className={cn(
-        "rounded-2xl border p-3.5 sm:p-5 transition-all duration-200 glass-card-hover",
-        match.status === "UPCOMING" && "match-upcoming hover:border-purple-500/30",
+        "rounded-2xl border p-3.5 sm:p-5 transition-all duration-200 glass-card-hover bg-white",
+        match.status === "UPCOMING" && "match-upcoming hover:border-indigo-300",
         match.status === "LIVE" && "match-live",
         match.status === "COMPLETED" && "match-completed"
       )}
@@ -61,10 +60,10 @@ export function MatchCard({
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <span className="text-[10px] sm:text-xs font-mono font-bold text-purple-400/80 bg-purple-500/10 px-2 py-0.5 rounded-md border border-purple-500/20">
+          <span className="text-[10px] sm:text-xs font-mono font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-200">
             #{index + 1}
           </span>
-          <span className="text-xs font-semibold text-slate-300">
+          <span className="text-xs font-bold text-slate-800">
             Round {match.roundNumber}
           </span>
         </div>
@@ -97,16 +96,16 @@ export function MatchCard({
           className={cn(
             "flex-1 rounded-xl p-3 border transition-colors min-w-0 flex flex-col justify-between",
             team1Won
-              ? "border-emerald-500/40 bg-gradient-to-br from-emerald-950/30 to-slate-900/40 text-emerald-200"
-              : "border-white/10 bg-white/[0.02]"
+              ? "border-emerald-300 bg-emerald-50/80 text-emerald-950 shadow-xs"
+              : "border-slate-200 bg-slate-50/70"
           )}
         >
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-1.5">
-              <div className="h-2.5 w-2.5 rounded-full bg-white border border-slate-300 shadow-sm" />
-              <span className="text-[11px] font-bold text-slate-300">Team 1</span>
+              <div className="h-2.5 w-2.5 rounded-full bg-white border border-slate-300 shadow-xs" />
+              <span className="text-[11px] font-bold text-slate-700">Team 1</span>
               {isWhiteTeam1 && (
-                <span className="text-[9px] font-mono uppercase tracking-wider text-amber-400 font-bold ml-1">
+                <span className="text-[9px] font-mono uppercase tracking-wider text-amber-700 font-bold ml-1">
                   Break
                 </span>
               )}
@@ -115,7 +114,7 @@ export function MatchCard({
               <span
                 className={cn(
                   "text-lg sm:text-xl font-black tabular-nums",
-                  team1Won ? "text-emerald-400" : "text-slate-500"
+                  team1Won ? "text-emerald-700" : "text-slate-400"
                 )}
               >
                 {team1Bucks}
@@ -131,11 +130,11 @@ export function MatchCard({
 
         {/* VS divider */}
         <div className="flex flex-col items-center justify-center gap-1 px-1">
-          <div className="h-full w-px bg-white/10 hidden sm:block" />
-          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-white/[0.05] border border-white/10 text-slate-400">
+          <div className="h-full w-px bg-slate-200 hidden sm:block" />
+          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-slate-100 border border-slate-200 text-slate-500">
             <Swords className="h-3.5 w-3.5" />
           </div>
-          <div className="h-full w-px bg-white/10 hidden sm:block" />
+          <div className="h-full w-px bg-slate-200 hidden sm:block" />
         </div>
 
         {/* Team 2 */}
@@ -143,16 +142,16 @@ export function MatchCard({
           className={cn(
             "flex-1 rounded-xl p-3 border transition-colors min-w-0 flex flex-col justify-between",
             team2Won
-              ? "border-emerald-500/40 bg-gradient-to-br from-emerald-950/30 to-slate-900/40 text-emerald-200"
-              : "border-white/10 bg-white/[0.02]"
+              ? "border-emerald-300 bg-emerald-50/80 text-emerald-950 shadow-xs"
+              : "border-slate-200 bg-slate-50/70"
           )}
         >
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-1.5">
-              <div className="h-2.5 w-2.5 rounded-full bg-slate-900 border border-slate-600 shadow-sm" />
-              <span className="text-[11px] font-bold text-slate-300">Team 2</span>
+              <div className="h-2.5 w-2.5 rounded-full bg-slate-900 border border-slate-700 shadow-xs" />
+              <span className="text-[11px] font-bold text-slate-700">Team 2</span>
               {!isWhiteTeam1 && (
-                <span className="text-[9px] font-mono uppercase tracking-wider text-amber-400 font-bold ml-1">
+                <span className="text-[9px] font-mono uppercase tracking-wider text-amber-700 font-bold ml-1">
                   Break
                 </span>
               )}
@@ -161,7 +160,7 @@ export function MatchCard({
               <span
                 className={cn(
                   "text-lg sm:text-xl font-black tabular-nums",
-                  team2Won ? "text-emerald-400" : "text-slate-500"
+                  team2Won ? "text-emerald-700" : "text-slate-400"
                 )}
               >
                 {team2Bucks}
@@ -177,11 +176,11 @@ export function MatchCard({
       </div>
 
       {/* Footer / Quick Action */}
-      <div className="mt-3 pt-2.5 border-t border-white/[0.06] flex items-center justify-between text-xs text-slate-400">
+      <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
         <span className="text-[11px]">
           {isCompleted ? "Match Finished" : "Tap to record scores"}
         </span>
-        <span className="flex items-center gap-1 text-purple-400 font-semibold group-hover:text-purple-300 transition-colors">
+        <span className="flex items-center gap-1 text-indigo-600 font-bold group-hover:text-indigo-800 transition-colors">
           {isCompleted ? "Edit Score" : "Score Match"}
           <ArrowRight className="h-3.5 w-3.5" />
         </span>

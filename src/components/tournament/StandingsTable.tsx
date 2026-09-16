@@ -19,8 +19,8 @@ export function StandingsTable({
   if (rankings.length === 0) {
     return (
       <div className="text-center py-10 text-slate-500">
-        <Target className="h-8 w-8 mx-auto mb-2 opacity-40 text-purple-400" />
-        <p className="text-sm">No standings calculated yet. Complete match rounds to view live rankings!</p>
+        <Target className="h-8 w-8 mx-auto mb-2 opacity-40 text-indigo-500" />
+        <p className="text-sm font-medium">No standings calculated yet. Complete match rounds to view live rankings!</p>
       </div>
     );
   }
@@ -29,35 +29,35 @@ export function StandingsTable({
     <div className={cn("overflow-x-auto -mx-2 sm:mx-0", className)}>
       <table className="w-full">
         <thead>
-          <tr className="border-b border-white/10">
-            <th className="text-left py-3 px-2 sm:px-3 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 w-8 sm:w-12">
+          <tr className="border-b border-slate-200 bg-slate-50/70">
+            <th className="text-left py-3 px-2 sm:px-3 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-600 w-8 sm:w-12">
               #
             </th>
-            <th className="text-left py-3 px-2 sm:px-3 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-400">
+            <th className="text-left py-3 px-2 sm:px-3 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-600">
               Player
             </th>
-            <th className="text-right py-3 px-2 sm:px-3 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-amber-400">
+            <th className="text-right py-3 px-2 sm:px-3 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-amber-700">
               Bucks
             </th>
-            <th className="text-right py-3 px-1.5 sm:px-3 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-emerald-400">
+            <th className="text-right py-3 px-1.5 sm:px-3 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-emerald-700">
               W
             </th>
-            <th className="text-right py-3 px-1.5 sm:px-3 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-rose-400">
+            <th className="text-right py-3 px-1.5 sm:px-3 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-rose-700">
               L
             </th>
             {!compact && (
               <>
-                <th className="text-right py-3 px-2 sm:px-3 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 hidden sm:table-cell">
+                <th className="text-right py-3 px-2 sm:px-3 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-600 hidden sm:table-cell">
                   GP
                 </th>
-                <th className="text-right py-3 px-2 sm:px-3 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-purple-400 hidden sm:table-cell">
+                <th className="text-right py-3 px-2 sm:px-3 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-indigo-700 hidden sm:table-cell">
                   Avg/G
                 </th>
               </>
             )}
           </tr>
         </thead>
-        <tbody className="divide-y divide-white/5">
+        <tbody className="divide-y divide-slate-100 bg-white">
           {rankings.map((rp, i) => {
             const isTop4 = rp.rank <= 4;
             const isRank1 = rp.rank === 1;
@@ -66,20 +66,20 @@ export function StandingsTable({
               <tr
                 key={rp.player.id}
                 className={cn(
-                  "transition-colors hover:bg-white/[0.04]",
-                  isRank1 && "bg-amber-500/[0.08]",
-                  i === 3 && "border-b-2 border-dashed border-purple-500/30" // Knockout cutoff indicator
+                  "transition-colors hover:bg-slate-50",
+                  isRank1 && "bg-amber-50/40",
+                  i === 3 && "border-b-2 border-dashed border-indigo-300" // Knockout cutoff indicator
                 )}
               >
                 <td className="py-3 px-2 sm:px-3">
                   <div className="flex items-center gap-1">
                     {isRank1 ? (
-                      <Crown className="h-4 w-4 text-amber-400 animate-pulse" />
+                      <Crown className="h-4 w-4 text-amber-500 animate-pulse" />
                     ) : (
                       <span
                         className={cn(
                           "text-xs sm:text-sm font-bold tabular-nums",
-                          isTop4 ? "text-purple-400" : "text-slate-500"
+                          isTop4 ? "text-indigo-700" : "text-slate-400"
                         )}
                       >
                         {rp.rank}
@@ -91,36 +91,36 @@ export function StandingsTable({
                   <div className="flex items-center gap-2">
                     <PlayerBadge player={rp.player} size="sm" />
                     {isTop4 && (
-                      <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.2 rounded bg-purple-500/15 text-purple-300 border border-purple-500/20 hidden md:inline-block">
+                      <span className="text-[9px] uppercase font-extrabold tracking-wider px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200 hidden md:inline-block">
                         Top 4
                       </span>
                     )}
                   </div>
                 </td>
                 <td className="py-3 px-2 sm:px-3 text-right">
-                  <span className="text-sm sm:text-base font-black tabular-nums text-amber-400">
+                  <span className="text-sm sm:text-base font-black tabular-nums text-amber-600">
                     {rp.totalBucks}
                   </span>
                 </td>
                 <td className="py-3 px-1.5 sm:px-3 text-right">
-                  <span className="text-xs sm:text-sm font-semibold tabular-nums text-emerald-400">
+                  <span className="text-xs sm:text-sm font-bold tabular-nums text-emerald-600">
                     {rp.wins}
                   </span>
                 </td>
                 <td className="py-3 px-1.5 sm:px-3 text-right">
-                  <span className="text-xs sm:text-sm tabular-nums text-slate-400">
+                  <span className="text-xs sm:text-sm font-medium tabular-nums text-slate-500">
                     {rp.losses}
                   </span>
                 </td>
                 {!compact && (
                   <>
                     <td className="py-3 px-2 sm:px-3 text-right hidden sm:table-cell">
-                      <span className="text-xs sm:text-sm tabular-nums text-slate-300">
+                      <span className="text-xs sm:text-sm font-semibold tabular-nums text-slate-700">
                         {rp.gamesPlayed}
                       </span>
                     </td>
                     <td className="py-3 px-2 sm:px-3 text-right hidden sm:table-cell">
-                      <span className="text-xs sm:text-sm tabular-nums text-purple-300 font-semibold">
+                      <span className="text-xs sm:text-sm tabular-nums text-indigo-700 font-bold">
                         {rp.avgBucks.toFixed(1)}
                       </span>
                     </td>
@@ -133,9 +133,9 @@ export function StandingsTable({
       </table>
 
       {rankings.length >= 4 && (
-        <div className="mt-3 text-[11px] text-purple-400/80 flex items-center gap-1.5 px-2">
+        <div className="mt-3 text-[11px] text-indigo-700 font-semibold flex items-center gap-1.5 px-2">
           <Sparkles className="h-3.5 w-3.5" />
-          <span>Top 4 players at the dashed line qualify for the Championship Knockout bracket.</span>
+          <span>Top 4 players above the dashed line qualify for Championship Knockouts.</span>
         </div>
       )}
     </div>

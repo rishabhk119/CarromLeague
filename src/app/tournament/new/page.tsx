@@ -63,7 +63,7 @@ export default function NewTournamentPage() {
   const fillSamplePlayers = () => {
     playButtonClick();
     if (!name.trim()) {
-      setName("Office Carrom Clash 2025");
+      setName("Championship Carrom Clash 2026");
     }
     const count = Math.max(playerNames.length, 5);
     const samples = SAMPLE_NAMES.slice(0, count);
@@ -109,7 +109,7 @@ export default function NewTournamentPage() {
       {/* Back link */}
       <button
         onClick={() => router.push("/")}
-        className="mb-8 flex items-center gap-1.5 text-xs sm:text-sm text-slate-400 hover:text-white transition-colors cursor-pointer"
+        className="mb-8 flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-slate-500 hover:text-slate-900 transition-colors cursor-pointer"
       >
         <ArrowLeft className="h-4 w-4" />
         Back to tournaments
@@ -123,10 +123,10 @@ export default function NewTournamentPage() {
               className={cn(
                 "flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold transition-all shrink-0",
                 step === s
-                  ? "bg-purple-600 text-white shadow-lg shadow-purple-600/40 border border-purple-400"
+                  ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30 border border-indigo-400"
                   : step > s
-                  ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-                  : "bg-white/[0.05] text-slate-500 border border-white/10"
+                  ? "bg-emerald-100 text-emerald-700 border border-emerald-300"
+                  : "bg-slate-100 text-slate-400 border border-slate-200"
               )}
             >
               {step > s ? <Check className="h-4 w-4" /> : s}
@@ -135,7 +135,7 @@ export default function NewTournamentPage() {
               <div
                 className={cn(
                   "h-0.5 flex-1 transition-colors mr-2",
-                  step > s ? "bg-emerald-500/40" : "bg-white/10"
+                  step > s ? "bg-emerald-300" : "bg-slate-200"
                 )}
               />
             )}
@@ -154,17 +154,17 @@ export default function NewTournamentPage() {
             className="space-y-6"
           >
             <div>
-              <h1 className="text-2xl sm:text-3xl font-black text-white mb-2">
+              <h1 className="text-2xl sm:text-3xl font-black text-slate-900 mb-2">
                 Name your tournament
               </h1>
-              <p className="text-xs sm:text-sm text-slate-400">
+              <p className="text-xs sm:text-sm text-slate-500 font-medium">
                 Give your championship a memorable title for the standings board.
               </p>
             </div>
 
             <Input
               label="Tournament Name"
-              placeholder="e.g., Diwali Carrom League 2025"
+              placeholder="e.g., Spring Carrom Cup 2026"
               value={name}
               onChange={(e) => setName(e.target.value)}
               autoFocus
@@ -177,7 +177,7 @@ export default function NewTournamentPage() {
               <button
                 type="button"
                 onClick={fillSamplePlayers}
-                className="text-xs text-purple-400 hover:text-purple-300 flex items-center gap-1.5 transition-colors cursor-pointer"
+                className="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1.5 transition-colors cursor-pointer"
               >
                 <Dice5 className="h-3.5 w-3.5" />
                 Quick autofill sample data
@@ -206,10 +206,10 @@ export default function NewTournamentPage() {
           >
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-2xl sm:text-3xl font-black text-white mb-1">
+                <h1 className="text-2xl sm:text-3xl font-black text-slate-900 mb-1">
                   Add players
                 </h1>
-                <p className="text-xs sm:text-sm text-slate-400">
+                <p className="text-xs sm:text-sm text-slate-500 font-medium">
                   {MIN_PLAYERS}–{MAX_PLAYERS} players. Unique names required.
                 </p>
               </div>
@@ -217,7 +217,7 @@ export default function NewTournamentPage() {
               <button
                 type="button"
                 onClick={fillSamplePlayers}
-                className="text-xs text-purple-400 hover:text-purple-300 flex items-center gap-1 transition-colors cursor-pointer"
+                className="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 transition-colors cursor-pointer"
               >
                 <Dice5 className="h-3.5 w-3.5" />
                 Fill Samples
@@ -227,7 +227,7 @@ export default function NewTournamentPage() {
             <div className="space-y-2.5">
               {playerNames.map((pn, i) => (
                 <div key={i} className="flex items-center gap-2">
-                  <span className="w-5 text-right text-xs font-mono font-bold text-slate-500 tabular-nums">
+                  <span className="w-5 text-right text-xs font-mono font-bold text-slate-400 tabular-nums">
                     {i + 1}
                   </span>
                   <Input
@@ -240,7 +240,7 @@ export default function NewTournamentPage() {
                     <button
                       type="button"
                       onClick={() => removePlayer(i)}
-                      className="flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
+                      className="flex h-10 w-10 items-center justify-center rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
                       aria-label={`Remove player ${i + 1}`}
                     >
                       <X className="h-4 w-4" />
@@ -254,7 +254,7 @@ export default function NewTournamentPage() {
               <button
                 type="button"
                 onClick={addPlayer}
-                className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-purple-400 hover:text-purple-300 transition-colors cursor-pointer"
+                className="flex items-center gap-2 text-xs sm:text-sm font-bold text-indigo-600 hover:text-indigo-800 transition-colors cursor-pointer"
               >
                 <Plus className="h-4 w-4" />
                 Add another player (Max {MAX_PLAYERS})
@@ -288,60 +288,60 @@ export default function NewTournamentPage() {
             className="space-y-6"
           >
             <div>
-              <h1 className="text-2xl sm:text-3xl font-black text-white mb-2">
+              <h1 className="text-2xl sm:text-3xl font-black text-slate-900 mb-2">
                 Confirm & launch
               </h1>
-              <p className="text-xs sm:text-sm text-slate-400">
+              <p className="text-xs sm:text-sm text-slate-500 font-medium">
                 Review your tournament schedule parameters before kick-off.
               </p>
             </div>
 
             {error && (
-              <div className="rounded-xl border border-rose-500/30 bg-rose-500/10 p-4 text-xs font-semibold text-rose-400">
+              <div className="rounded-xl border border-rose-300 bg-rose-50 p-4 text-xs font-bold text-rose-700">
                 {error}
               </div>
             )}
 
-            <div className="glass-card p-5 sm:p-6 space-y-4 border border-white/15">
+            <div className="p-5 sm:p-6 space-y-4 border border-slate-200 bg-white rounded-2xl shadow-xs">
               <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-500/20 to-purple-500/20 border border-amber-500/30 text-amber-400">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-50 border border-amber-200 text-amber-600">
                   <Trophy className="h-6 w-6" />
                 </div>
                 <div>
-                  <h2 className="font-extrabold text-lg text-white">{name}</h2>
-                  <p className="text-xs text-purple-400 font-semibold">
+                  <h2 className="font-black text-lg text-slate-900">{name}</h2>
+                  <p className="text-xs text-indigo-600 font-bold">
                     2v2 Carrom Doubles • 1 Board
                   </p>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
-                <div className="rounded-xl bg-white/[0.03] border border-white/5 p-3.5">
-                  <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-1">
-                    <Users className="h-4 w-4 text-purple-400" />
+                <div className="rounded-xl bg-slate-50 border border-slate-200 p-3.5">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-slate-500 mb-1">
+                    <Users className="h-4 w-4 text-indigo-600" />
                     <span>Total Players</span>
                   </div>
-                  <p className="text-2xl font-black text-white">{playerCount}</p>
+                  <p className="text-2xl font-black text-slate-900">{playerCount}</p>
                 </div>
 
-                <div className="rounded-xl bg-white/[0.03] border border-white/5 p-3.5">
-                  <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-1">
-                    <Zap className="h-4 w-4 text-amber-400" />
+                <div className="rounded-xl bg-slate-50 border border-slate-200 p-3.5">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-slate-500 mb-1">
+                    <Zap className="h-4 w-4 text-amber-600" />
                     <span>League Rounds</span>
                   </div>
-                  <p className="text-2xl font-black text-amber-400">{leagueMatches}</p>
+                  <p className="text-2xl font-black text-amber-600">{leagueMatches}</p>
                 </div>
               </div>
 
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+                <p className="text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-2">
                   Registered Competitors
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {validPlayers.map((p, i) => (
                     <span
                       key={i}
-                      className="rounded-xl bg-purple-500/15 border border-purple-500/30 px-3 py-1 text-xs font-semibold text-purple-200"
+                      className="rounded-xl bg-indigo-50 border border-indigo-200 px-3 py-1 text-xs font-bold text-indigo-800"
                     >
                       {p}
                     </span>
@@ -349,17 +349,17 @@ export default function NewTournamentPage() {
                 </div>
               </div>
 
-              <div className="rounded-xl bg-white/[0.02] border border-white/5 p-3.5 text-xs text-slate-400 space-y-1.5 leading-relaxed">
+              <div className="rounded-xl bg-slate-50 border border-slate-200 p-3.5 text-xs text-slate-600 space-y-1.5 leading-relaxed font-medium">
                 <p className="flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-purple-400" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
                   League: {leagueMatches} matches (average ~3 matches per competitor)
                 </p>
                 <p className="flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
                   Top 4 ranked by bucks advance to cross-seeded Knockouts
                 </p>
                 <p className="flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-rose-400" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-rose-500" />
                   Standard carrom bucks: 1 per opponent coin left + 3 for covered Queen
                 </p>
               </div>

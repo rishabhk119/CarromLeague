@@ -1,7 +1,6 @@
 "use client";
 
 import type { KnockoutBracket, KnockoutMatch, Player, RankedPlayer } from "@/lib/engine/types";
-import { PlayerBadge } from "./PlayerBadge";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Trophy, Crown, Swords, ArrowRight, CheckCircle2 } from "lucide-react";
@@ -31,12 +30,12 @@ export function BracketVisual({
 
   if (!bracket) {
     return (
-      <div className="glass-card p-8 sm:p-12 text-center border border-white/10">
-        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400 mx-auto mb-4">
+      <div className="glass-card p-8 sm:p-12 text-center border border-slate-200 bg-white shadow-xs">
+        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-indigo-50 border border-indigo-200 text-indigo-600 mx-auto mb-4">
           <Trophy className="h-8 w-8" />
         </div>
-        <h3 className="text-lg font-bold text-white mb-2">Knockout Stage Not Started</h3>
-        <p className="text-sm text-slate-400 max-w-md mx-auto mb-6">
+        <h3 className="text-lg font-black text-slate-900 mb-2">Knockout Stage Not Started</h3>
+        <p className="text-sm text-slate-500 max-w-md mx-auto mb-6">
           The top 4 players from the league will advance to the semifinals. Complete all league matches to generate the bracket.
         </p>
 
@@ -57,10 +56,10 @@ export function BracketVisual({
   ) => {
     if (!match) {
       return (
-        <div className="glass-card p-4 border border-dashed border-white/15 bg-white/[0.02] rounded-2xl min-w-[260px] flex flex-col justify-center items-center py-8 text-slate-500">
-          <Swords className="h-6 w-6 mb-2 opacity-40" />
-          <span className="text-xs font-semibold uppercase tracking-wider">{title}</span>
-          <span className="text-[11px] text-slate-500 mt-1">Awaiting Semifinal Results</span>
+        <div className="p-4 border border-dashed border-slate-300 bg-slate-50/50 rounded-2xl min-w-[260px] flex flex-col justify-center items-center py-8 text-slate-400">
+          <Swords className="h-6 w-6 mb-2 opacity-50 text-slate-400" />
+          <span className="text-xs font-bold uppercase tracking-wider text-slate-600">{title}</span>
+          <span className="text-[11px] text-slate-400 mt-1">Awaiting Semifinal Results</span>
         </div>
       );
     }
@@ -75,10 +74,10 @@ export function BracketVisual({
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="glass-card p-4 border border-white/15 hover:border-purple-500/40 transition-all rounded-2xl min-w-[260px] sm:min-w-[280px] shadow-xl relative"
+        className="glass-card p-4 border border-slate-200 hover:border-indigo-300 transition-all rounded-2xl min-w-[260px] sm:min-w-[280px] shadow-xs relative bg-white"
       >
         <div className="flex items-center justify-between mb-2.5">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-purple-400">
+          <span className="text-[10px] font-extrabold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200">
             {roundLabel}
           </span>
           {isCompleted ? (
@@ -95,8 +94,8 @@ export function BracketVisual({
         <div
           className={`p-2.5 rounded-xl border mb-2 transition-colors ${
             t1Won
-              ? "bg-emerald-500/15 border-emerald-500/30 text-emerald-200"
-              : "bg-white/[0.03] border-white/5"
+              ? "bg-emerald-50 border-emerald-300 text-emerald-950 font-bold"
+              : "bg-slate-50 border-slate-200 text-slate-800"
           }`}
         >
           <div className="flex items-center justify-between gap-2">
@@ -107,16 +106,16 @@ export function BracketVisual({
                     className="h-2.5 w-2.5 rounded-full shrink-0"
                     style={{ backgroundColor: p.avatarColor }}
                   />
-                  <span className="text-xs font-semibold truncate">{p.name}</span>
+                  <span className="text-xs font-bold truncate">{p.name}</span>
                 </div>
               ))}
             </div>
-            {t1Won && <Crown className="h-4 w-4 text-amber-400 shrink-0" />}
+            {t1Won && <Crown className="h-4 w-4 text-amber-500 shrink-0" />}
           </div>
         </div>
 
         {/* VS divider */}
-        <div className="text-[10px] uppercase font-bold text-center text-slate-500 my-1">
+        <div className="text-[10px] uppercase font-black text-center text-slate-400 my-1">
           VS
         </div>
 
@@ -124,8 +123,8 @@ export function BracketVisual({
         <div
           className={`p-2.5 rounded-xl border mb-3 transition-colors ${
             t2Won
-              ? "bg-emerald-500/15 border-emerald-500/30 text-emerald-200"
-              : "bg-white/[0.03] border-white/5"
+              ? "bg-emerald-50 border-emerald-300 text-emerald-950 font-bold"
+              : "bg-slate-50 border-slate-200 text-slate-800"
           }`}
         >
           <div className="flex items-center justify-between gap-2">
@@ -136,11 +135,11 @@ export function BracketVisual({
                     className="h-2.5 w-2.5 rounded-full shrink-0"
                     style={{ backgroundColor: p.avatarColor }}
                   />
-                  <span className="text-xs font-semibold truncate">{p.name}</span>
+                  <span className="text-xs font-bold truncate">{p.name}</span>
                 </div>
               ))}
             </div>
-            {t2Won && <Crown className="h-4 w-4 text-amber-400 shrink-0" />}
+            {t2Won && <Crown className="h-4 w-4 text-amber-500 shrink-0" />}
           </div>
         </div>
 
@@ -149,7 +148,7 @@ export function BracketVisual({
           <Button
             size="sm"
             variant={isCompleted ? "secondary" : "primary"}
-            className="w-full text-xs"
+            className="w-full text-xs font-bold"
           >
             {isCompleted ? "View Scorecard" : "Score Match"}
             <ArrowRight className="h-3 w-3" />
@@ -168,13 +167,13 @@ export function BracketVisual({
   return (
     <div className="space-y-6">
       {/* Knockout Banner */}
-      <div className="glass-card p-4 sm:p-5 border border-purple-500/30 bg-gradient-to-r from-purple-950/20 via-slate-900/30 to-amber-950/20 flex flex-wrap items-center justify-between gap-3">
+      <div className="p-4 sm:p-5 border border-indigo-200 bg-gradient-to-r from-indigo-50/60 via-white to-amber-50/60 rounded-2xl flex flex-wrap items-center justify-between gap-3 shadow-xs">
         <div>
-          <h3 className="text-base font-bold text-white flex items-center gap-2">
-            <Trophy className="h-5 w-5 text-amber-400" />
+          <h3 className="text-base font-black text-slate-900 flex items-center gap-2">
+            <Trophy className="h-5 w-5 text-amber-500" />
             Championship Knockout Bracket
           </h3>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-slate-500 font-medium">
             Top 4 players cross-seeded into 2v2 Semifinals & Grand Final.
           </p>
         </div>
@@ -193,14 +192,14 @@ export function BracketVisual({
           {/* Column 1: Semifinals */}
           <div className="flex flex-col gap-8 flex-1">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-purple-400 mb-2 block">
+              <span className="text-xs font-bold uppercase tracking-wider text-indigo-700 mb-2 block">
                 Semifinal 1
               </span>
               {renderMatchCard(bracket.semifinal1, "Semifinal 1", "SF 1")}
             </div>
 
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-purple-400 mb-2 block">
+              <span className="text-xs font-bold uppercase tracking-wider text-indigo-700 mb-2 block">
                 Semifinal 2
               </span>
               {renderMatchCard(bracket.semifinal2, "Semifinal 2", "SF 2")}
@@ -208,57 +207,57 @@ export function BracketVisual({
           </div>
 
           {/* Connectors */}
-          <div className="w-8 flex flex-col items-center justify-center text-purple-500/40">
+          <div className="w-8 flex flex-col items-center justify-center text-indigo-300">
             <ArrowRight className="h-6 w-6" />
           </div>
 
           {/* Column 2: Grand Final */}
           <div className="flex flex-col justify-center flex-1">
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-400 mb-2 block text-center">
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-600 mb-2 block text-center">
               Grand Final
             </span>
             {renderMatchCard(finalMatch, "Grand Final", "Final")}
           </div>
 
           {/* Connector to Trophy */}
-          <div className="w-8 flex flex-col items-center justify-center text-amber-500/40">
+          <div className="w-8 flex flex-col items-center justify-center text-amber-400">
             <ArrowRight className="h-6 w-6" />
           </div>
 
           {/* Column 3: Champion Podium */}
           <div className="flex-1 flex flex-col items-center justify-center">
             <div
-              className={`glass-card p-6 border text-center max-w-[240px] w-full rounded-2xl ${
+              className={`p-6 border text-center max-w-[240px] w-full rounded-2xl transition-all ${
                 isFinalComplete
-                  ? "border-amber-400/50 bg-gradient-to-b from-amber-500/15 via-yellow-500/10 to-transparent glow-amber"
-                  : "border-white/10 bg-white/[0.02]"
+                  ? "border-amber-300 bg-gradient-to-b from-amber-100/70 via-yellow-50 to-white shadow-lg shadow-amber-500/10 glow-amber"
+                  : "border-slate-200 bg-slate-50"
               }`}
             >
               <div
-                className={`flex h-16 w-16 items-center justify-center rounded-2xl mx-auto mb-3 shadow-xl ${
+                className={`flex h-16 w-16 items-center justify-center rounded-2xl mx-auto mb-3 shadow-md ${
                   isFinalComplete
                     ? "bg-gradient-to-br from-amber-400 to-yellow-500 text-slate-950 animate-bounce"
-                    : "bg-white/[0.05] text-slate-600"
+                    : "bg-slate-200 text-slate-400"
                 }`}
               >
                 <Crown className="h-9 w-9" />
               </div>
 
-              <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400 block mb-1">
+              <span className="text-[10px] font-extrabold uppercase tracking-widest text-amber-700 block mb-1">
                 Champion
               </span>
 
               {isFinalComplete && champion ? (
                 <div>
-                  <h4 className="text-lg font-black text-white truncate">
+                  <h4 className="text-lg font-black text-slate-900 truncate">
                     {champion.player.name}
                   </h4>
-                  <p className="text-xs text-amber-300 font-semibold mt-1">
+                  <p className="text-xs text-amber-700 font-bold mt-1">
                     {champion.totalBucks} Bucks
                   </p>
                 </div>
               ) : (
-                <p className="text-xs text-slate-500">To be crowned</p>
+                <p className="text-xs font-medium text-slate-400">To be crowned</p>
               )}
             </div>
           </div>

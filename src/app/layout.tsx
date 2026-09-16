@@ -17,13 +17,13 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Antigravity — Carrom Tournament Arena",
+  title: "Carrom League — Tournament Arena",
   description:
     "Opinionated 2v2 carrom tournament engine: fair rotation schedule, bucks scoring, and knockout brackets with cloud history.",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black-translucent",
-    title: "Antigravity",
+    statusBarStyle: "default",
+    title: "Carrom League",
   },
   formatDetection: {
     telephone: false,
@@ -36,7 +36,7 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
   viewportFit: "cover",
-  themeColor: "#07080e",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({
@@ -47,15 +47,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jetbrainsMono.variable} dark h-full antialiased`}
+      className={`${inter.variable} ${jetbrainsMono.variable} light h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans selection:bg-purple-500/30 selection:text-purple-200">
-        <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#07080e]/80 backdrop-blur-xl">
+      <body className="min-h-full flex flex-col font-sans selection:bg-indigo-500/20 selection:text-indigo-900 bg-white text-slate-900">
+        <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl shadow-xs">
           <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
             {/* Left: Brand Logo & Title */}
             <div className="flex items-center gap-6">
               <Link href="/" className="flex items-center gap-2.5 group">
-                <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-violet-600 via-purple-600 to-rose-500 shadow-lg shadow-purple-600/30 transition-all group-hover:shadow-purple-500/50 group-hover:scale-105 border border-white/20">
+                <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-violet-600 via-indigo-600 to-rose-500 shadow-md shadow-indigo-600/20 transition-all group-hover:shadow-indigo-500/40 group-hover:scale-105 border border-white/40">
                   {/* Carrom board icon */}
                   <svg
                     viewBox="0 0 24 24"
@@ -74,10 +74,10 @@ export default function RootLayout({
                 </div>
                 <div className="flex flex-col">
                   <span className="text-base sm:text-lg font-black tracking-tight gradient-text">
-                    ANTIGRAVITY
+                    CARROM LEAGUE
                   </span>
-                  <span className="text-[9px] uppercase tracking-widest text-slate-400 font-semibold -mt-1 hidden sm:block">
-                    Carrom Arena
+                  <span className="text-[9px] uppercase tracking-widest text-slate-500 font-bold -mt-1 hidden sm:block">
+                    Tournament Arena
                   </span>
                 </div>
               </Link>
@@ -86,16 +86,16 @@ export default function RootLayout({
               <nav className="hidden md:flex items-center gap-1">
                 <Link
                   href="/"
-                  className="rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-300 transition-colors hover:text-white hover:bg-white/[0.06] flex items-center gap-1.5"
+                  className="rounded-lg px-3 py-1.5 text-xs font-bold text-slate-700 transition-colors hover:text-indigo-600 hover:bg-slate-100 flex items-center gap-1.5"
                 >
-                  <Trophy className="h-3.5 w-3.5 text-purple-400" />
+                  <Trophy className="h-3.5 w-3.5 text-indigo-600" />
                   Tournaments
                 </Link>
                 <Link
                   href="/history"
-                  className="rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-300 transition-colors hover:text-white hover:bg-white/[0.06] flex items-center gap-1.5"
+                  className="rounded-lg px-3 py-1.5 text-xs font-bold text-slate-700 transition-colors hover:text-rose-600 hover:bg-slate-100 flex items-center gap-1.5"
                 >
-                  <History className="h-3.5 w-3.5 text-rose-400" />
+                  <History className="h-3.5 w-3.5 text-rose-500" />
                   History & Records
                 </Link>
               </nav>
@@ -109,7 +109,7 @@ export default function RootLayout({
               <Link href="/tournament/new" className="hidden sm:block">
                 <button
                   type="button"
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 px-3.5 py-1.5 text-xs font-bold text-white shadow-md shadow-purple-600/30 hover:shadow-purple-500/50 hover:brightness-110 border border-purple-400/30 transition-all cursor-pointer active:scale-95"
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 px-3.5 py-1.5 text-xs font-bold text-white shadow-md shadow-indigo-600/20 hover:shadow-indigo-500/40 hover:brightness-105 border border-indigo-400/30 transition-all cursor-pointer active:scale-95"
                 >
                   <Plus className="h-3.5 w-3.5" />
                   New Tournament
@@ -119,24 +119,24 @@ export default function RootLayout({
           </div>
 
           {/* Mobile sub-nav */}
-          <div className="flex md:hidden items-center justify-around border-t border-white/[0.05] bg-[#07080e]/60 px-2 py-1.5">
+          <div className="flex md:hidden items-center justify-around border-t border-slate-200/80 bg-white/95 px-2 py-1.5">
             <Link
               href="/"
-              className="flex items-center gap-1.5 py-1 px-3 text-xs font-semibold text-slate-300 hover:text-white"
+              className="flex items-center gap-1.5 py-1 px-3 text-xs font-bold text-slate-700 hover:text-indigo-600"
             >
-              <Trophy className="h-3.5 w-3.5 text-purple-400" />
+              <Trophy className="h-3.5 w-3.5 text-indigo-600" />
               Tournaments
             </Link>
             <Link
               href="/history"
-              className="flex items-center gap-1.5 py-1 px-3 text-xs font-semibold text-slate-300 hover:text-white"
+              className="flex items-center gap-1.5 py-1 px-3 text-xs font-bold text-slate-700 hover:text-rose-600"
             >
-              <History className="h-3.5 w-3.5 text-rose-400" />
+              <History className="h-3.5 w-3.5 text-rose-500" />
               History
             </Link>
             <Link
               href="/tournament/new"
-              className="flex items-center gap-1 py-1 px-2.5 rounded-lg bg-purple-600/30 text-purple-300 text-xs font-bold border border-purple-500/40"
+              className="flex items-center gap-1 py-1 px-2.5 rounded-lg bg-indigo-50 text-indigo-700 text-xs font-bold border border-indigo-200"
             >
               <Plus className="h-3.5 w-3.5" />
               New
@@ -144,19 +144,19 @@ export default function RootLayout({
           </div>
         </header>
 
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 bg-white">{children}</main>
 
-        <footer className="border-t border-white/[0.08] py-5 pb-safe bg-[#07080e]">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+        <footer className="border-t border-slate-200 py-6 pb-safe bg-slate-50">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 font-medium">
             <p className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-purple-500" />
-              Antigravity Carrom Engine — Fair Rotation & Bucks Ranking
+              <span className="h-2 w-2 rounded-full bg-indigo-600" />
+              Carrom League Engine — Fair Rotation & Bucks Ranking
             </p>
             <div className="flex items-center gap-4">
-              <Link href="/history" className="hover:text-slate-300 transition-colors">
+              <Link href="/history" className="hover:text-slate-900 transition-colors">
                 Archives
               </Link>
-              <Link href="/tournament/new" className="hover:text-slate-300 transition-colors">
+              <Link href="/tournament/new" className="hover:text-slate-900 transition-colors">
                 Start Tournament
               </Link>
             </div>

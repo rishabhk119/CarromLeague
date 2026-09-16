@@ -14,8 +14,6 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import {
   Cloud,
-  CloudCheck,
-  CloudOff,
   Database,
   X,
   RefreshCw,
@@ -59,7 +57,6 @@ export function SupabaseModal() {
       setTestResult({ ok: false, message: "Please provide both Supabase URL and Anon Key" });
       return;
     }
-    // Temporarily save to test
     saveSupabaseConfig(urlInput, keyInput);
     setTesting(true);
     setTestResult(null);
@@ -183,37 +180,37 @@ create policy if not exists "Allow anon all" on match_player_stats for all using
           loadConfig();
           setIsOpen(true);
         }}
-        className="flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-semibold tracking-wide border transition-all cursor-pointer backdrop-blur-sm"
+        className="flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-semibold tracking-wide border transition-all cursor-pointer shadow-xs"
         style={{
-          backgroundColor: config.isConfigured ? "rgba(16, 185, 129, 0.12)" : "rgba(255, 255, 255, 0.05)",
-          borderColor: config.isConfigured ? "rgba(16, 185, 129, 0.3)" : "rgba(255, 255, 255, 0.1)",
-          color: config.isConfigured ? "#34d399" : "#94a3b8",
+          backgroundColor: config.isConfigured ? "#ecfdf5" : "#ffffff",
+          borderColor: config.isConfigured ? "#a7f3d0" : "#e2e8f0",
+          color: config.isConfigured ? "#059669" : "#475569",
         }}
         title="Supabase Cloud Sync Settings"
       >
         {config.isConfigured ? (
           <>
-            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-            <Cloud className="h-3.5 w-3.5 text-emerald-400" />
-            <span className="hidden sm:inline font-medium">Cloud Synced</span>
+            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+            <Cloud className="h-3.5 w-3.5 text-emerald-600" />
+            <span className="hidden sm:inline font-bold">Cloud Synced</span>
           </>
         ) : (
           <>
-            <HardDrive className="h-3.5 w-3.5 text-slate-400" />
-            <span className="hidden sm:inline font-medium">Local Store</span>
-            <span className="text-[10px] text-purple-400 underline font-semibold ml-1">Connect</span>
+            <HardDrive className="h-3.5 w-3.5 text-slate-500" />
+            <span className="hidden sm:inline font-semibold">Local Store</span>
+            <span className="text-[10px] text-indigo-600 underline font-bold ml-1">Connect</span>
           </>
         )}
       </button>
 
       {/* Modal Dialog */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-in fade-in duration-200">
-          <div className="relative w-full max-w-lg glass-card border border-white/15 p-5 sm:p-7 shadow-2xl shadow-purple-950/40 max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="relative w-full max-w-lg bg-white rounded-2xl border border-slate-200 p-5 sm:p-7 shadow-2xl max-h-[90vh] overflow-y-auto">
             {/* Close button */}
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors"
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-800 p-1 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
               aria-label="Close modal"
             >
               <X className="h-5 w-5" />
@@ -221,19 +218,19 @@ create policy if not exists "Allow anon all" on match_player_stats for all using
 
             {/* Header */}
             <div className="flex items-center gap-3 mb-5">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500/20 to-purple-500/20 border border-emerald-500/30 text-emerald-400">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600">
                 <Database className="h-6 w-6" />
               </div>
               <div>
-                <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                <h2 className="text-lg font-black text-slate-900 flex items-center gap-2">
                   Supabase Cloud Sync
                   {config.isConfigured && (
-                    <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                    <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
                       Active
                     </span>
                   )}
                 </h2>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-slate-500">
                   Save all carrom matches in cloud history so you can view them anytime from any device.
                 </p>
               </div>
@@ -263,22 +260,22 @@ create policy if not exists "Allow anon all" on match_player_stats for all using
                 <div
                   className={`p-3 rounded-xl text-xs flex items-start gap-2.5 border ${
                     testResult.ok
-                      ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-300"
-                      : "bg-rose-500/10 border-rose-500/30 text-rose-300"
+                      ? "bg-emerald-50 border-emerald-200 text-emerald-800"
+                      : "bg-rose-50 border-rose-200 text-rose-800"
                   }`}
                 >
                   {testResult.ok ? (
-                    <ShieldCheck className="h-4 w-4 shrink-0 mt-0.5 text-emerald-400" />
+                    <ShieldCheck className="h-4 w-4 shrink-0 mt-0.5 text-emerald-600" />
                   ) : (
-                    <AlertCircle className="h-4 w-4 shrink-0 mt-0.5 text-rose-400" />
+                    <AlertCircle className="h-4 w-4 shrink-0 mt-0.5 text-rose-600" />
                   )}
-                  <span>{testResult.message}</span>
+                  <span className="font-medium">{testResult.message}</span>
                 </div>
               )}
 
               {syncResult && (
-                <div className="p-3 rounded-xl text-xs bg-purple-500/10 border border-purple-500/30 text-purple-300 flex items-center gap-2">
-                  <Check className="h-4 w-4 text-purple-400 shrink-0" />
+                <div className="p-3 rounded-xl text-xs bg-indigo-50 border border-indigo-200 text-indigo-800 flex items-center gap-2 font-medium">
+                  <Check className="h-4 w-4 text-indigo-600 shrink-0" />
                   <span>
                     Successfully synchronized {syncResult.success} tournament(s) to cloud!
                     {syncResult.failed > 0 && ` (${syncResult.failed} failed)`}
@@ -324,17 +321,17 @@ create policy if not exists "Allow anon all" on match_player_stats for all using
             </div>
 
             {/* SQL Setup Helper */}
-            <div className="border-t border-white/10 pt-4">
+            <div className="border-t border-slate-200 pt-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold text-slate-300">Database Table Setup</span>
+                <span className="text-xs font-bold text-slate-800">Database Table Setup</span>
                 <button
                   onClick={handleCopySql}
-                  className="flex items-center gap-1 text-[11px] text-purple-400 hover:text-purple-300 transition-colors"
+                  className="flex items-center gap-1 text-[11px] font-bold text-indigo-600 hover:text-indigo-800 transition-colors cursor-pointer"
                 >
                   {copiedSql ? (
                     <>
-                      <Check className="h-3.5 w-3.5 text-emerald-400" />
-                      <span className="text-emerald-400">Copied!</span>
+                      <Check className="h-3.5 w-3.5 text-emerald-600" />
+                      <span className="text-emerald-600">Copied!</span>
                     </>
                   ) : (
                     <>
@@ -344,7 +341,7 @@ create policy if not exists "Allow anon all" on match_player_stats for all using
                   )}
                 </button>
               </div>
-              <p className="text-[11px] text-slate-400 leading-relaxed">
+              <p className="text-[11px] text-slate-500 leading-relaxed">
                 If creating a new Supabase project, click <strong>Copy SQL Schema</strong> and run it once in your Supabase SQL Editor.
               </p>
             </div>

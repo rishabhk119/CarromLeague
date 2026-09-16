@@ -44,8 +44,8 @@ export default function BracketPage() {
     return (
       <div className="mx-auto max-w-6xl px-4 py-12">
         <div className="animate-pulse space-y-4">
-          <div className="h-8 w-48 rounded-lg bg-white/5" />
-          <div className="h-64 rounded-2xl bg-white/5" />
+          <div className="h-8 w-48 rounded-lg bg-slate-100" />
+          <div className="h-64 rounded-2xl bg-slate-100" />
         </div>
       </div>
     );
@@ -73,7 +73,7 @@ export default function BracketPage() {
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
       <Link
         href={`/tournament/${tournament.id}`}
-        className="mb-6 inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-white transition-colors"
+        className="mb-6 inline-flex items-center gap-1.5 text-sm font-semibold text-slate-500 hover:text-slate-900 transition-colors"
       >
         <ArrowLeft className="h-4 w-4" />
         Back to {tournament.name} Hub
@@ -81,11 +81,11 @@ export default function BracketPage() {
 
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white flex items-center gap-2.5">
-            <Trophy className="h-7 w-7 text-amber-400" />
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 flex items-center gap-2.5">
+            <Trophy className="h-7 w-7 text-amber-500" />
             Tournament Bracket
           </h1>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-sm text-slate-500 mt-1 font-medium">
             {tournament.name} — Knockout Elimination
           </p>
         </div>

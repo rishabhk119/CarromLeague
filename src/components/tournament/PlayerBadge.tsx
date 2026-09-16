@@ -20,10 +20,10 @@ export function PlayerBadge({
     <div className={cn("flex items-center gap-2", className)}>
       <div
         className={cn(
-          "flex items-center justify-center rounded-full font-black text-slate-950 shrink-0 border border-white/20 shadow-md transition-transform hover:scale-110",
+          "flex items-center justify-center rounded-full font-black text-white shrink-0 border border-white shadow-xs transition-transform hover:scale-105",
           size === "sm" && "h-6 w-6 text-[9px]",
           size === "md" && "h-8 w-8 text-xs",
-          size === "lg" && "h-11 w-11 text-sm shadow-lg"
+          size === "lg" && "h-11 w-11 text-sm shadow-md"
         )}
         style={{ backgroundColor: player.avatarColor }}
         title={player.name}
@@ -33,10 +33,10 @@ export function PlayerBadge({
       {showName && (
         <span
           className={cn(
-            "font-semibold text-slate-100 truncate",
+            "font-bold text-slate-800 truncate",
             size === "sm" && "text-xs",
             size === "md" && "text-sm",
-            size === "lg" && "text-base font-bold"
+            size === "lg" && "text-base"
           )}
         >
           {player.name}

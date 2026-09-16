@@ -37,41 +37,41 @@ export function TournamentCard({ tournament, onDelete }: TournamentCardProps) {
     <motion.div
       whileHover={{ y: -3 }}
       transition={{ duration: 0.2 }}
-      className="glass-card glass-card-hover p-5 relative group"
+      className="glass-card glass-card-hover p-5 relative group bg-white border border-slate-200 shadow-xs"
     >
       <Link href={`/tournament/${tournament.id}`} className="block">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-3 mb-2.5">
               <div
-                className={`flex h-11 w-11 items-center justify-center rounded-xl shrink-0 shadow-md ${
+                className={`flex h-11 w-11 items-center justify-center rounded-xl shrink-0 shadow-xs ${
                   tournament.status === "COMPLETE"
-                    ? "bg-gradient-to-br from-amber-500/30 to-yellow-500/20 border border-amber-400/40 text-amber-300"
-                    : "bg-purple-500/15 border border-purple-500/30 text-purple-400"
+                    ? "bg-amber-50 border border-amber-200 text-amber-700"
+                    : "bg-indigo-50 border border-indigo-200 text-indigo-700"
                 }`}
               >
                 <Trophy className="h-5 w-5" />
               </div>
               <div className="min-w-0">
-                <h3 className="font-bold text-white truncate text-base group-hover:text-purple-300 transition-colors">
+                <h3 className="font-extrabold text-slate-900 truncate text-base group-hover:text-indigo-600 transition-colors">
                   {tournament.name}
                 </h3>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-slate-500 font-medium">
                   {formatDate(tournament.createdAt)}
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-4 mt-3">
-              <div className="flex items-center gap-1.5 text-xs text-slate-300 font-medium">
-                <Users className="h-3.5 w-3.5 text-slate-500" />
+              <div className="flex items-center gap-1.5 text-xs text-slate-700 font-semibold">
+                <Users className="h-3.5 w-3.5 text-slate-400" />
                 <span>
                   {tournament.players.length}{" "}
                   {pluralize(tournament.players.length, "player")}
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 text-xs text-slate-300 font-medium">
-                <Swords className="h-3.5 w-3.5 text-slate-500" />
+              <div className="flex items-center gap-1.5 text-xs text-slate-700 font-semibold">
+                <Swords className="h-3.5 w-3.5 text-slate-400" />
                 <span>
                   {tournament.config.leagueMatches}{" "}
                   {pluralize(tournament.config.leagueMatches, "match", "matches")}
@@ -90,7 +90,7 @@ export function TournamentCard({ tournament, onDelete }: TournamentCardProps) {
                 />
               ))}
               {tournament.players.length > 6 && (
-                <span className="ml-2 text-xs font-semibold text-slate-400">
+                <span className="ml-2 text-xs font-bold text-slate-500">
                   +{tournament.players.length - 6}
                 </span>
               )}
@@ -104,13 +104,13 @@ export function TournamentCard({ tournament, onDelete }: TournamentCardProps) {
               {onDelete && (
                 <button
                   onClick={handleDelete}
-                  className="opacity-0 group-hover:opacity-100 h-7 w-7 flex items-center justify-center rounded-lg text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-all cursor-pointer"
+                  className="opacity-0 group-hover:opacity-100 h-7 w-7 flex items-center justify-center rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-all cursor-pointer"
                   title="Delete tournament"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
                 </button>
               )}
-              <ChevronRight className="h-5 w-5 text-slate-500 group-hover:text-purple-400 transition-colors" />
+              <ChevronRight className="h-5 w-5 text-slate-400 group-hover:text-indigo-600 transition-colors" />
             </div>
           </div>
         </div>

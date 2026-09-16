@@ -24,14 +24,14 @@ export function SoundToggle() {
     <button
       type="button"
       onClick={handleToggle}
-      className="flex items-center justify-center h-8 w-8 rounded-lg border border-white/10 bg-white/[0.05] text-slate-300 hover:text-white hover:border-purple-500/30 transition-all cursor-pointer"
+      className="flex items-center justify-center h-8 w-8 rounded-lg border border-slate-200 bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-50 hover:border-slate-300 transition-all cursor-pointer shadow-xs"
       title={enabled ? "Mute Sound Effects" : "Enable Sound Effects"}
       aria-label="Toggle sound effects"
     >
       {enabled ? (
-        <Volume2 className="h-4 w-4 text-purple-400" />
+        <Volume2 className="h-4 w-4 text-indigo-600" />
       ) : (
-        <VolumeX className="h-4 w-4 text-slate-500" />
+        <VolumeX className="h-4 w-4 text-slate-400" />
       )}
     </button>
   );

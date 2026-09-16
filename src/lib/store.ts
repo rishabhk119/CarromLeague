@@ -37,7 +37,8 @@ export interface StoreState {
 }
 
 // ── Storage key ─────────────────────────────
-const STORAGE_KEY = 'antigravity_store';
+const STORAGE_KEY = 'carromleague_store';
+const LEGACY_STORAGE_KEY = 'antigravity_store';
 
 // ── Helpers ─────────────────────────────────
 function generateId(): string {
@@ -49,7 +50,7 @@ export function loadState(): StoreState {
     return { tournaments: {} };
   }
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
     if (raw) return JSON.parse(raw);
   } catch {
     // ignore parse errors
