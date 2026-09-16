@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { SupabaseModal } from "@/components/sync/SupabaseModal";
+import { IntroSplash } from "@/components/IntroSplash";
+import { AIChatButton } from "@/components/ai/AIChatButton";
 import { SoundToggle } from "@/components/ui/SoundToggle";
 import Link from "next/link";
 import { Plus, Trophy, History } from "lucide-react";
@@ -104,7 +105,6 @@ export default function RootLayout({
             {/* Right: Actions */}
             <div className="flex items-center gap-2 sm:gap-3">
               <SoundToggle />
-              <SupabaseModal />
 
               <Link href="/tournament/new" className="hidden sm:block">
                 <button
@@ -144,7 +144,9 @@ export default function RootLayout({
           </div>
         </header>
 
-        <main className="flex-1 bg-white">{children}</main>
+        <main className="flex-1 bg-white">
+          <IntroSplash>{children}</IntroSplash>
+        </main>
 
         <footer className="border-t border-slate-200 py-6 pb-safe bg-slate-50">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 font-medium">
@@ -162,6 +164,9 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
+
+        {/* Floating AI Chat Assistant */}
+        <AIChatButton />
       </body>
     </html>
   );

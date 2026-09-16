@@ -1,19 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { motion, useAnimation } from "framer-motion";
-import { Play, RotateCcw, Zap, Sparkles, Crown } from "lucide-react";
-import { playCoinClack, playQueenPocket, playVictoryFanfare } from "@/lib/audio";
+import { Crown } from "lucide-react";
+import { playCoinClack, playQueenPocket } from "@/lib/audio";
 
-export function CarromIntroAnimation() {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [pocketed, setPocketed] = useState(false);
-  const [strikeCount, setStrikeCount] = useState(0);
+interface CarromIntroAnimationProps {
+  /** Called when the strike animation sequence completes */
+  onComplete?: () => void;
+}
 
+export function CarromIntroAnimation({ onComplete }: CarromIntroAnimationProps) {
   // Controls for striker and coins
   const strikerControls = useAnimation();
   const queenControls = useAnimation();
-  const whiteCoin1Controls = useAnimation(); // The one that gets pocketed
+  const whiteCoin1Controls = useAnimation();
   const whiteCoin2Controls = useAnimation();
   const whiteCoin3Controls = useAnimation();
   const blackCoin1Controls = useAnimation();
@@ -21,10 +22,7 @@ export function CarromIntroAnimation() {
   const blackCoin3Controls = useAnimation();
 
   // Reset to initial positions
-  const resetBoard = async () => {
-    setPocketed(false);
-    setIsPlaying(false);
-
+  const resetBoard = useCallback(() => {
     strikerControls.set({ x: -40, y: 110, scale: 1, opacity: 1 });
     queenControls.set({ x: 0, y: 0, scale: 1, opacity: 1, rotate: 0 });
     whiteCoin1Controls.set({ x: 0, y: -16, scale: 1, opacity: 1 });
@@ -33,14 +31,10 @@ export function CarromIntroAnimation() {
     blackCoin1Controls.set({ x: 14, y: -8, scale: 1, opacity: 1 });
     blackCoin2Controls.set({ x: -14, y: -8, scale: 1, opacity: 1 });
     blackCoin3Controls.set({ x: 0, y: 16, scale: 1, opacity: 1 });
-  };
+  }, [strikerControls, queenControls, whiteCoin1Controls, whiteCoin2Controls, whiteCoin3Controls, blackCoin1Controls, blackCoin2Controls, blackCoin3Controls]);
 
   // Play the carrom strike animation sequence
-  const playStrike = async () => {
-    if (isPlaying) return;
-    setIsPlaying(true);
-    setPocketed(false);
-
+  const playStrike = useCallback(async () => {
     // 1. Aim: Striker slides into strike position on the baseline
     await strikerControls.start({
       x: 0,
@@ -94,9 +88,7 @@ export function CarromIntroAnimation() {
             opacity: 0,
             transition: { duration: 0.2 },
           });
-          setPocketed(true);
           playQueenPocket();
-          setStrikeCount((c) => c + 1);
         });
 
       // Other white coins scatter
@@ -129,28 +121,27 @@ export function CarromIntroAnimation() {
       });
     }, 180);
 
-    // Complete sequence after 1.5s
+    // Notify parent that animation is done
     setTimeout(() => {
-      setIsPlaying(false);
-    }, 1600);
-  };
+      onComplete?.();
+    }, 1800);
+  }, [strikerControls, queenControls, whiteCoin1Controls, whiteCoin2Controls, whiteCoin3Controls, blackCoin1Controls, blackCoin2Controls, blackCoin3Controls, onComplete]);
 
   useEffect(() => {
     resetBoard();
     // Auto-play once on initial mount after a gentle delay
     const timer = setTimeout(() => {
       playStrike();
-    }, 800);
+    }, 600);
     return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="flex flex-col items-center select-none">
       {/* Outer Championship Wooden Frame */}
       <div
-        onClick={!isPlaying ? playStrike : undefined}
-        className="relative cursor-pointer group w-full max-w-[340px] sm:max-w-[380px] aspect-square rounded-[2.5rem] p-4 sm:p-5 bg-gradient-to-br from-[#4e321e] via-[#3d2514] to-[#2b180a] border-4 border-[#251408] shadow-2xl shadow-amber-950/25 transition-transform hover:scale-[1.01]"
-        title="Tap the board to flick the striker!"
+        className="relative w-full max-w-[340px] sm:max-w-[380px] aspect-square rounded-[2.5rem] p-4 sm:p-5 bg-gradient-to-br from-[#4e321e] via-[#3d2514] to-[#2b180a] border-4 border-[#251408] shadow-2xl shadow-amber-950/25"
       >
         {/* Brass Frame Corner Reinforcements */}
         <div className="absolute top-2 left-2 h-6 w-6 rounded-tl-xl border-t-2 border-l-2 border-amber-500/50" />
@@ -164,14 +155,6 @@ export function CarromIntroAnimation() {
         </div>
         <div className="absolute top-3.5 right-3.5 h-9 w-9 rounded-full bg-[#18120c] border border-amber-800/40 shadow-inner flex items-center justify-center z-10">
           <div className="h-5 w-5 rounded-full bg-black shadow-inner border border-neutral-900" />
-          {pocketed && (
-            <motion.div
-              initial={{ scale: 0, opacity: 1 }}
-              animate={{ scale: 1.8, opacity: 0 }}
-              transition={{ duration: 0.6 }}
-              className="absolute inset-0 rounded-full bg-amber-400/40"
-            />
-          )}
         </div>
         <div className="absolute bottom-3.5 left-3.5 h-9 w-9 rounded-full bg-[#18120c] border border-amber-800/40 shadow-inner flex items-center justify-center z-10">
           <div className="h-5 w-5 rounded-full bg-black shadow-inner border border-neutral-900" />
@@ -246,7 +229,7 @@ export function CarromIntroAnimation() {
           {/* Center Queen Piece (Ruby Red with Gold Motif) */}
           <motion.div
             animate={queenControls}
-            className="absolute h-7 w-7 rounded-full bg-gradient-to-tr from-rose-600 via-red-600 to-rose-500 border-2 border-rose-200 shadow-md flex items-center justify-center z-20 cursor-pointer"
+            className="absolute h-7 w-7 rounded-full bg-gradient-to-tr from-rose-600 via-red-600 to-rose-500 border-2 border-rose-200 shadow-md flex items-center justify-center z-20"
           >
             <Crown className="h-3.5 w-3.5 text-white drop-shadow-xs" />
           </motion.div>
@@ -294,65 +277,13 @@ export function CarromIntroAnimation() {
           {/* The Striker (Larger Championship Disc) */}
           <motion.div
             animate={strikerControls}
-            className="absolute h-9 w-9 rounded-full bg-gradient-to-tr from-indigo-500 via-purple-500 to-rose-400 border-2 border-white shadow-lg flex items-center justify-center z-30 cursor-pointer"
+            className="absolute h-9 w-9 rounded-full bg-gradient-to-tr from-indigo-500 via-purple-500 to-rose-400 border-2 border-white shadow-lg flex items-center justify-center z-30"
           >
             <div className="h-4 w-4 rounded-full border border-white/60 flex items-center justify-center">
               <div className="h-1.5 w-1.5 rounded-full bg-white shadow-xs" />
             </div>
           </motion.div>
-
-          {/* Dynamic Aim Line Indicator before strike */}
-          {!isPlaying && !pocketed && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: [0.4, 0.8, 0.4] }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
-              className="absolute pointer-events-none w-0.5 h-20 bg-gradient-to-t from-indigo-500 to-transparent z-15"
-              style={{ transform: "translateY(55px) rotate(0deg)" }}
-            />
-          )}
-
-          {/* Pocketed Toast Badge */}
-          {pocketed && (
-            <motion.div
-              initial={{ scale: 0.5, y: 10, opacity: 0 }}
-              animate={{ scale: 1, y: 0, opacity: 1 }}
-              transition={{ type: "spring", stiffness: 350, damping: 20 }}
-              className="absolute top-12 px-3 py-1 rounded-full bg-emerald-600 text-white text-[11px] font-black tracking-wide flex items-center gap-1.5 shadow-lg z-40 border border-emerald-300"
-            >
-              <Sparkles className="h-3 w-3 text-yellow-300 animate-spin" />
-              POCKETED! +1 BUCK
-            </motion.div>
-          )}
         </div>
-      </div>
-
-      {/* Animation Controls Row */}
-      <div className="mt-4 flex items-center gap-2.5">
-        <button
-          type="button"
-          onClick={playStrike}
-          disabled={isPlaying}
-          className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-indigo-700 px-4 py-2 text-xs font-bold text-white shadow-md shadow-indigo-600/20 hover:shadow-indigo-500/40 hover:brightness-105 active:scale-95 transition-all cursor-pointer disabled:opacity-50"
-        >
-          <Zap className="h-3.5 w-3.5 text-amber-300" />
-          {isPlaying ? "Striking..." : "Flick Striker"}
-        </button>
-
-        <button
-          type="button"
-          onClick={resetBoard}
-          className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 hover:text-slate-900 shadow-xs transition-all cursor-pointer"
-        >
-          <RotateCcw className="h-3.5 w-3.5 text-slate-400" />
-          Reset Board
-        </button>
-
-        {strikeCount > 0 && (
-          <span className="text-[11px] font-bold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-200">
-            {strikeCount} {strikeCount === 1 ? "Pocket" : "Pockets"}
-          </span>
-        )}
       </div>
     </div>
   );
